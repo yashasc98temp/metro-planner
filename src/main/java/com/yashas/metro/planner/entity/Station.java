@@ -1,0 +1,20 @@
+package com.yashas.metro.planner.entity;
+
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class Station {
+
+	@Id
+	private Long id;
+	private String city;
+	private String name;
+	private String line;
+	private Character active;
+
+}
