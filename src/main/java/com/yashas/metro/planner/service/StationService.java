@@ -19,4 +19,9 @@ public class StationService implements StationServiceInterface {
 		return stationRepo.findAll();
 	}
 
+	@Override
+	public List<Station> getStationsByLine(String line) {
+		return stationRepo.findByLine(line);
+	}
+
 }
