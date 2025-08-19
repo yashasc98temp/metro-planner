@@ -14,6 +14,7 @@ public class Station {
 
 	@Id
 	private Long id;
+	private String code;
 	private String city;
 	private String name;
 	private String line;

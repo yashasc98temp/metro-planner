@@ -3,6 +3,7 @@ package com.yashas.metro.planner.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,13 +18,18 @@ public class StationController {
 	private StationService stationService;
 
 	@GetMapping("/stations")
-	public List<Station> getStations() {
-		return stationService.getStations();
+	public ResponseEntity<List<Station>> getStations() {
+		return ResponseEntity.ok(stationService.getStations());
 	}
 
-	@GetMapping("/stations/{line}")
-	public List<Station> getStationsByLine(@PathVariable String line) {
-		return stationService.getStationsByLine(line);
+	@GetMapping("/stations/{code}")
+	public ResponseEntity<List<Station>> getStationsByCodee(@PathVariable String code) {
+		return ResponseEntity.ok(stationService.getStationsByCode(code));
+	}
+
+	@GetMapping("/lines/{line}/stations")
+	public ResponseEntity<List<Station>> getStationsByLine(@PathVariable String line) {
+		return ResponseEntity.ok(stationService.getStationsByLine(line));
 	}
 
 }
