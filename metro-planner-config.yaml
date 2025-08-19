@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metro-planner-db-config
+data:
+  SPRING_DATASOURCE_URL: jdbc:mysql://mysql-yashas.mysql.database.azure.com:3306/metroplanner?useSSL=true&requireSSL=true&verifyServerCertificate=false

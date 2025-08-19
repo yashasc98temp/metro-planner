@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metro-planner-deployment
+spec:
+  selector:
+    matchLabels:
+      app: metro-planner
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: metro-planner
+    spec:
+      containers:
+        - name: metro-planner-container
+          image: yashastraining/metro-planner:latest
+          ports:
+            - containerPort: 12002
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+      	        configMapKeyRef:
+                  name: metro-planner-config
+                  key: SPRING_DATASOURCE_URL
+
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+      	        configMapKeyRef:
+                  name: metro-planner-secrets
+                  key: SPRING_DATASOURCE_USERNAME
+
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+      	        configMapKeyRef:
+                  name: metro-planner-secrets
+                  key: SPRING_DATASOURCE_PASSWORD
+
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: metro-planner-service
+spec:
+  selector:
+    app: metro-planner
+  ports:
+    - protocol: "TCP"
+      port: 12002 # The port that the service is running on in the cluster
+      targetPort: 12002 # The port exposed by the service
+  type: LoadBalancer # type of the service.
+
